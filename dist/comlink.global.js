@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,8 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-self.Comlink = (function () {
+import './polyfills';
+export const Comlink = (function () {
     const TRANSFERABLE_TYPES = [ArrayBuffer, MessagePort];
     const uid = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
     const proxyValueSymbol = Symbol('proxyValue');

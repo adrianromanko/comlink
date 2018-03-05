@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import './polyfills';
 
 export interface Endpoint {
   postMessage(message: any, transfer?: any[]): void;

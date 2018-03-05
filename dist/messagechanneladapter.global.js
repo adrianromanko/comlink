@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Copyright 2017 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,8 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-self.MessageChannelAdapter = (function () {
+export const MessageChannelAdapter = (function () {
     /* export */ function wrap(smc, id = null) {
         const { port1, port2 } = new MessageChannel();
         hookup(port2, smc, id);

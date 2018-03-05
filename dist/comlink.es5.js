@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import './polyfills';
 export const Comlink = (function () {
     const TRANSFERABLE_TYPES = [ArrayBuffer, MessagePort];
     const uid = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);

@@ -2,9 +2,9 @@
   "name": "comlinkjs",
   "version": "2.3.3",
   "description": "",
-  "main": "comlink.umd.js",
-  "module": "comlink.es6.js",
-  "typings": "comlink.d.ts",
+  "main": "./dist/comlink.umd.js",
+  "module": "./dist/comlink.es5.js",
+  "typings": "./dist/comlink.d.ts",
   "scripts": {
     "test": "npm run linter && npm run unittest && npm run build",
     "unittest": "karma start",
@@ -13,8 +13,11 @@
     "watchtestharmony": "karma start --no-single-run --browsers ChromeCanaryHeadlessHarmony",
     "version": "sed -i.bak -e 's!comlinkjs@[0-9.]+!comlinkjs@'${npm_package_version}'!' README.md && git add README.md",
     "mypublish": "npm run build && npm run test && cp README.md package.json dist && npm publish dist",
-    "build": "rm -rf dist && mkdir dist && npm run compile && npm run mangle_global && npm run minify",
-    "compile": "tsc --outDir dist -m none && mv dist/comlink.{,global.}js && mv dist/messagechanneladapter.{,global.}js && tsc --outDir dist -m es2015 && mv dist/comlink.{,es6.}js && mv dist/messagechanneladapter.{,es6.}js && tsc -d --outDir dist -m umd && mv dist/comlink.{,umd.}js && mv dist/messagechanneladapter.{,umd.}js",
+    "build:es5": "npm run clean && npm run compile:es5",
+    "build:es6": "npm run clean && npm run compile:es6 && npm run mangle_global && npm run minify",
+    "clean": "rm -rf dist && mkdir dist",
+    "compile:es5": "tsc --outDir dist -m es2015 && mv dist/comlink.{,global.}js && mv dist/messagechanneladapter.{,global.}js && tsc --outDir dist -m es2015 && mv dist/comlink.{,es5.}js && mv dist/messagechanneladapter.{,es5.}js && tsc -d --outDir dist -m umd && mv dist/comlink.{,umd.}js && mv dist/messagechanneladapter.{,umd.}js",
+    "compile:es6": "tsc --outDir dist -m none && mv dist/comlink.{,global.}js && mv dist/messagechanneladapter.{,global.}js && tsc --outDir dist -m es2015 && mv dist/comlink.{,es6.}js && mv dist/messagechanneladapter.{,es6.}js && tsc -d --outDir dist -m umd && mv dist/comlink.{,umd.}js && mv dist/messagechanneladapter.{,umd.}js",
     "mangle_global": "sed -i.bak -e 's!exports.Comlink!self.Comlink!' dist/comlink.global.js && sed -i.bak 's!^.*\"__esModule\".*$!!' dist/comlink.global.js && sed -i.bak -e 's!exports.MessageChannelAdapter!self.MessageChannelAdapter!' dist/messagechanneladapter.global.js && sed -i.bak -e 's!^.*\"__esModule\".*$!!' dist/messagechanneladapter.global.js",
     "minify": "babel-minify --mangle -o dist/comlink.global.{min.,}js && babel-minify --mangle -o dist/comlink.es6.{min.,}js && babel-minify --mangle -o dist/comlink.umd.{min.,}js && babel-minify --mangle -o dist/messagechanneladapter.global.{min.,}js && babel-minify --mangle -o dist/messagechanneladapter.es6.{min.,}js && babel-minify --mangle -o dist/messagechanneladapter.umd.{min.,}js"
   },
@@ -54,5 +57,8 @@
     "typescript": "2.7.2",
     "typescript-eslint-parser": "14.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "core-js": "2.5.3",
+    "proxy-polyfill": "0.1.7"
+  }
 }
